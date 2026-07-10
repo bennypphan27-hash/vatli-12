@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ôn tập Chủ đề 2: Thang nhiệt độ - Lớp Lí cô Nguyên</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; max-width: 600px; margin: 20px auto; padding: 15px; 
+            background-color: #fce4ec;
+            background-image: radial-gradient(#f8bbd0 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        h2 { color: #880e4f; text-align: center; }
+        
+        .info-box { background: #fff5f8; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #f06292; }
+        
+        .question { 
+            margin-bottom: 20px; padding: 15px; background: rgba(255, 255, 255, 0.8); 
+            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            border-left: 5px solid #ec407a;
+        }
+        
+        .feedback { display: none; margin-top: 10px; padding: 10px; border-radius: 5px; font-size: 0.95em; }
+        
+        #submit-btn { 
+            padding: 15px; width: 100%; font-size: 18px; background-color: #d81b60; 
+            color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; 
+        }
+        
+        #result-area { 
+            text-align: center; margin-top: 20px; font-size: 22px; font-weight: bold; 
+            color: #880e4f; padding: 20px; background: #f8bbd0; border-radius: 15px; 
+        }
+        
+        input[type="text"] { width: 92%; padding: 10px; margin-top: 5px; border: 1px solid #f06292; border-radius: 8px; }
+        .back-btn {
+            background-color: #fce4ec;
+            border: 2px solid #880e4f;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #880e4f;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #880e4f;
+            color: white;
+        }
+       
+    </style>
+</head>
+<body>
+    <div style="text-align: left; margin-bottom: 20px;">
+            <a href="index.html" class="back-btn">🏠 Trở về thư viện chính</a>
+    </div>
+    <h2>🌸 10 câu ôn tập: Chủ đề 2 - Thang nhiệt độ 🌸</h2>
+    <h4 style="text-align:center; color: #ad1457;">Lớp Lí cô Nguyên</h4>
+    
+    <div class="info-box">
+        <label for="student-name"><b>Họ và tên học sinh:</b></label>
+        <input type="text" id="student-name" placeholder="Nhập tên của em vào đây...">
+    </div>
+
+    <div id="quiz-container"></div>
+    <button id="submit-btn" onclick="submitQuiz()">NỘP BÀI VÀ XEM KẾT QUẢ</button>
+    <div id="result-area"></div>
+
+    <script>
+        const questions = [
+            { q: "Theo nhiệt giai Kelvin, nhiệt độ của điểm mà tại đó động năng chuyển động nhiệt của các phân tử cấu tạo nên chất bằng không được gọi là", options: ["độ không tuyệt đối", "độ âm tuyệt đối", "điểm đóng băng tuyệt đối", "nhiệt độ không bách phân"], answer: 0, exp: "Độ không tuyệt đối." },
+
+            { q: "Theo thang nhiệt độ Celsius, từ nhiệt độ đông đặc đến nhiệt độ sôi của nước được chia thành", options: ["100 phần bằng nhau, mỗi phần ứng với $1 K$", "100 phần bằng nhau, mỗi phần ứng với $1 ^o C$", "100 phần bằng nhau, mỗi phần ứng với $1 ^o F$", "10 phần bằng nhau, mỗi phần ứng với $1 ^o C$"], answer: 1, exp: "100 phần bằng nhau, mỗi phần ứng với $1 ^o C$." },
+
+	    { q: "Theo thang nhiệt độ Kelvin, nhiệt độ nào sau đây không thể tồn tại trong thực tế?", options: ["-10 $K$", "1 $K$", "10 $K$", "273 $K$"], answer: 0, exp: "-10 $K$ vì 0 $K$ là giới hạn nhiệt độ thấp nhất trong vũ trụ." },
+
+            { q: "Cho hai vật có nhiệt độ khác nhau tiếp xúc với nhau. Nhiệt được truyền từ vật nào sang vật nào? ", options: ["Từ vật có khối lượng lớn hơn sang vật có khối lượng nhỏ hơn", "Từ vật có nhiệt năng lớn hơn sang vật có nhiệt năng nhỏ hơn", "Từ vật có nhiệt độ cao hơn sang vật có nhiệt độ thấp hơn", "Từ vật ở trên cao sang vật ở dưới thấp"], answer: 2, exp: "Từ vật có nhiệt độ cao hơn sang vật có nhiệt độ thấp hơn." },
+
+            { q: "Điểm đóng băng và sôi của nước theo thang Kelvin là", options: ["32 $K$ và 212 $K$", "73 $K$ và 3 $K$", "0 $K$ và 100 $K$", "273 $K$ và 373 $K$"], answer: 3, exp: "273 $K$ và 373 $K$." },
+
+            { q: "Trong nhiệt động lực học, điều kiện cụ thể về nhiệt độ và áp suất mà tại đó chất tồn tại đồng thời ở cả ba trạng thái rắn, lỏng và khí được gọi là gì?", options: ["Điểm băng", "Điểm ba", "Điểm nóng chảy", "Điểm tới hạn"], answer: 1, exp: "Điểm ba" },
+
+            { q: "Khi đặt vật 1 tiếp xúc nhiệt với vật 2 và có sự truyền nhiệt từ vật 1 sang vật 2, phát biểu nào sau đây là đúng?", options: ["Vật 1 chứa rất nhiều nhiệt lượng", "Vật 1 và vật 2 đều không chứa nhiệt lượng", "Vật 2 chứa rất ít nhiệt lượng", "Vật 1 chứa nhiều nhiệt lượng hơn vật 2"], answer: 1, exp: "Nhiệt lượng chỉ xuất hiện khi trao đổi nhiệt, vật 1 và vật 2 đều không chứa nhiệt lượng." },
+
+            { q: "Đo nhiệt độ của một vật trong thang nhiệt độ Celsius là 27 $^o C$ thì theo trong thang nhiệt độ Kelvin vật này có nhiệt độ là", options: ["300 $K$", "-246 $K$", "80,6 $K$", "400 $K$"], answer: 0, exp: "27 + 273 = 300 $K$." },
+
+            { q: "Một thang đo X lấy điểm băng là −10 $X$, lấy điểm sôi là 90 $X$. Nhiệt độ của một vật đọc được trên nhiệt kế Celsius là 40 $^o C$ thì trên nhiệt kế X có nhiệt độ bằng", options: ["20 $X$", "40 $X$", "30 $X$", "50 $X$"], answer: 2, exp: "30 $X$." },
+
+            { q: "Thước đo centimet áp dọc một nhiệt kế thủy ngân chưa chia vạch cho biết: vạch 0 $^o C$ trùng với vạch 2 cm trên thước, vạch 100 $^o C$ trùng với vạch 22 cm trên thước. Khi nhiệt kế chỉ nhiệt độ phòng, mực thủy ngân dừng ở vạch 7 cm trên thước. Nhiệt độ phòng lúc này là bao nhiêu $^o C$?", options: ["32 $^o C$", "14 $^o C$", "33 $^o C$", "25 $^o C$"], answer: 3, exp: "25 $^o C$." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+        questions.forEach((item, index) => {
+            let html = `<div class="question"><p><b>Câu ${index + 1}:</b> ${item.q}</p>`;
+            item.options.forEach((opt, i) => {
+                html += `<input type="radio" name="q${index}" value="${i}"> ${opt}<br>`;
+            });
+            html += `<div id="f${index}" class="feedback"></div></div>`;
+            container.innerHTML += html;
+        });
+
+        function submitQuiz() {
+            const name = document.getElementById('student-name').value;
+            if (name.trim() === "") {
+                Swal.fire({
+                      title: 'Thông báo!',
+                      text: 'Em vui lòng nhập tên trước khi nộp bài nhé!',
+                      icon: 'warning',
+                      confirmButtonText: 'Đã hiểu'
+                });
+                return;
+            }
+
+            // --- MỚI: Kiểm tra xem học sinh đã làm sót câu nào chưa ---
+             let allAnswered = true;
+             for (let i = 0; i < questions.length; i++) {
+                if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                    allAnswered = false;
+                    break; // Dừng kiểm tra nếu thấy câu chưa làm
+                }
+            }
+
+            if (!allAnswered) {
+                Swal.fire({
+                    title: 'Chưa xong đâu nhé!',
+                    text: 'Em hình như bỏ sót câu hỏi rồi, kiểm tra lại nha ✨',
+                    icon: 'info',
+                    confirmButtonText: 'Để em kiểm tra lại'
+                });
+                return; // Dừng lại, không cho nộp bài
+            }
+            
+            let score = 0;
+            questions.forEach((item, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                const feedback = document.getElementById(`f${index}`);
+                feedback.style.display = "block";
+                
+                if (selected && parseInt(selected.value) === item.answer) {
+                    feedback.style.backgroundColor = "#d4edda";
+                    feedback.innerHTML = "✅Chính xác! <br> 📝Giải thích: " + item.exp;
+                    score++;
+                } else {
+                    feedback.style.backgroundColor = "#f8d7da";
+                    feedback.innerHTML = "❌Sai rồi. <br> 📝Đáp án đúng: " + item.options[item.answer] + ". Giải thích: " + item.exp;
+                }
+            });
+            Swal.fire({
+                title: '✨ Kết quả của ' + name.toUpperCase() + ' ✨',
+                text: 'Tổng điểm của em là: ' + score + '/10',
+                icon: 'success',
+                confirmButtonText: 'Đóng'
+            });
+            document.getElementById('submit-btn').style.display = "none";
+            MathJax.typeset();
+        }
+        
+    </script>
+</body>
+</html>
